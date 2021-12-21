@@ -6,7 +6,7 @@ export default function Landing(){
     return (
         <div>
             <h1>Henry Dogs</h1>
-            <Link to="/home">
+            <Link to="/Home">
             <button>Home</button>
 
             </Link>

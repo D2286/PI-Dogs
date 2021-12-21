@@ -1,15 +1,12 @@
-import { GET_DOGS } from "../actions";
-
-
 
 const init = {
     perros : []
 }
 
-export default function rootReducer(state=init,action){
+export default function reducer(state=init, action){
     switch (action.type){
         case "GET_DOGS":
-            console.log(action.payload)
+        console.log(state.perros)
             return {
                 ...state,
                 perros:action.payload

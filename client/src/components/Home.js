@@ -1,31 +1,28 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import {Link} from "react-router-dom";
+import {useEffect, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import { getApi } from "../store/actions";
 import Card from "./Card"
 
 
 export default function Home (){
 
+  const allPerros= useSelector((state)=>state.perros)  // me traigo todo los paises
+  const dispatch = useDispatch()
 
-const allDogs = useSelector ((state)=> state.perros)
-
+    useEffect(()=>{
+    dispatch(getApi())
+  },[dispatch])
 
 
 return(
     <div>
-      <div>
-          {allDogs?.map((c)=>
-            <Link to= {"/home/"}key={c.id}>
-    
-            <Card id={c.id} name={c.name} image={c.image} temperament={c.temperament} key={c.id}/>
+      <h1>home</h1>
 
-
-        
-            </Link>
-          )
-
-          }
-      </div>
+      <div className="contenedorcartas">
+      {allPerros.map((e)=>{
+        return <Card key={e.id} id={e.id} name={e.name} image={e.image} temperament={e.temperament}/>
+      })}
+    </div>
     </div>
 )
 

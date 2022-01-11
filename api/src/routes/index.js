@@ -64,26 +64,29 @@ return allData
 //-------RUTAS-------//-----///////
 
 
-router.get('/temps', async ( req, res ) => {
+router.get('/tempes', async ( req, res ) => {
 
-    const dogsApi = await getApi();
-    const dogsDb = dogsApi.map( el => el.temperament ).join().split(',')
-    const dogsDbTrim = dogsDb.map( el => el.trim())
+    const dogsApi = await axios.get(apExt);
+    const dogsDb = dogsApi.data.map( el => el.temperament )
+    const dogsDbTrim = dogsDb.toString().trim().split(/\s*,\s*/)
+    const splitTemperaments = dogsDbTrim.filter(temp => temp.length > 0);
     
-    dogsDbTrim.forEach( el => {
-        if(el.legth > 2) {
+    splitTemperaments.forEach( el => {
+        
             Temperament.findOrCreate({
                 where: {
                     name: el
                 }
+               
             })
-        }
+            console.log(splitTemperaments) 
     })
 
     const allTemperaments = await Temperament.findAll();
 
     return res.status( 200 ).send( allTemperaments )
 })
+
 
 
 ///// Trae tosdos los perros y con ?name="nombre perros"
@@ -172,7 +175,7 @@ router.post("/createmp", async (req,res)=>{
 module.exports = router;
 
 
- /*    router.post("/temps", async (req,res)=>{
+/*    router.post("/temps", async (req,res)=>{
         const {name, weight, height, life_span, temperament, image} = req.body
         const crear = await Dog.create({
             name,
@@ -191,7 +194,7 @@ module.exports = router;
         crear.addTemperament(temperamentDB[0].id)
         }
         res.send("temperamento creado") */
-/* if(name && weight && heigth && life_span && temperaments && image){
+ /* if(name && weight && heigth && life_span && temperaments && image){
     try{
         const crear = await Dog.create({name, weight, heigth, life_span, image})
         res.send(crear)     
@@ -200,4 +203,4 @@ module.exports = router;
     }
 }else{
     res.send("No hay nada")
-} */
+}   */

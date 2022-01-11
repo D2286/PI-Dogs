@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 export default function Landing(){
     return (
         <div>
-            <h1>Henry Dogs</h1>
+            <h1>Bienvenidos</h1>
             <Link to="/Home">
             <button>Home</button>
 

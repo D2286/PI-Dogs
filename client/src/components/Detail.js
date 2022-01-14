@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getDetail} from "../store/actions";
+import { getDetail} from "../actions";
 import { Link, useParams} from "react-router-dom";
 
 

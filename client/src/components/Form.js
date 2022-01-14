@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {Get_Temps, CreateDogs} from "../store/actions";
+import {Get_Temps, CreateDogs} from "../actions";
 import {Link} from "react-router-dom";
 
 

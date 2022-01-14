@@ -1,7 +1,7 @@
 import React from 'react';
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import { getApi } from "../store/actions";
+import { getApi } from "../actions";
 import Card from "./Card"
 import {Link} from "react-router-dom"
 import Searchbar from "./Searchbar"

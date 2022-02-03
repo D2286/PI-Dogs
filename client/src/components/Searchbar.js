@@ -1,7 +1,9 @@
 import React from "react"
 import {useState} from "react";
 import {useDispatch} from "react-redux";
-import Name_Detail from  "./Searchbar";
+import {nameDetail} from "../store/actions";
+//import orderByName from "../store/actions";
+
 
 
 export default function Searchbar(){
@@ -11,14 +13,15 @@ export default function Searchbar(){
 
 function handleInputChange (e){
 e.preventDefault()
-    setName(e.target.value)
-    console.log(name)
+    setName(e.target.value) 
+    //console.log(setName)
 
 }
 
 function handleSubmit(e){
     e.preventDefault()
-    dispatch(Name_Detail(name))
+    dispatch(nameDetail(name))
+        
     
 }
 
@@ -30,6 +33,8 @@ return (
         type = "text"
         placeholder = "Buscar"
         onChange = {(e) => handleInputChange(e)}
+        value={name}
+        onKeyPress={e => e.key === 'Enter' && handleSubmit(e)}
         
         />
         <button type="submit" onClick={(e)=> handleSubmit(e)}>Buscar</button>

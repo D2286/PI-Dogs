@@ -1,7 +1,7 @@
 import React from 'react';
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import { getApi } from "../store/actions";
+import { filterOrigin, getApi, orderByName } from "../store/actions";
 import Card from "./Card"
 import {Link} from "react-router-dom"
 import Searchbar from "./Searchbar"
@@ -17,18 +17,30 @@ export default function Home (){
   const indexLastDogs = currPag*dogsxPage
   const indexfirstDogs = indexLastDogs-dogsxPage
   const currDogs = allPerros?.slice(indexfirstDogs,indexLastDogs)
-
   const paginado = (pagNum)=>{
     setPag(pagNum)
   }
 
+  function handleFilterOrigin(e) {
+    e.preventDefault();
+    dispatch(filterOrigin(e.target.value))
+}
 
-  
+ 
   const dispatch = useDispatch()
 
     useEffect(()=>{
     dispatch(getApi())
   },[dispatch])
+
+
+  const[, setOrden] = useState("")
+  function handleSort(e){
+    e.preventDefault();
+    dispatch(orderByName(e.target.value))
+    setOrden(e.target.value)
+
+  }
  
 
 return(
@@ -37,13 +49,26 @@ return(
 
   <Searchbar/>
   
-    <div>  
+    <div>
+
+    <select onChange={e => handleFilterOrigin(e)}>
+      <option value='all'>All</option>
+      <option value='api'>Existent breed</option>
+      <option value='created'>Created breeds</option>
+    </select>
+
+
+    <select onChange={e => handleSort(e)}>
+      <option value="az"> ASC</option>
+      <option value="za"> DESC </option>
+    </select>
+
+    <div> 
 
     <Paginado
-      dogsxPage={dogsxPage}
-      allPerros={allPerros.length}
-      paginado={paginado}
-      
+        dogsxPage={dogsxPage}
+        allDogs={allPerros?.length}
+        paginado={paginado}
     />
 
     
@@ -55,12 +80,14 @@ return(
   
       <div className="contenedorcartas">
     
-      {currDogs.map(e=>{
+      {currDogs?.map(e=>{
         return(
+
+       <div key={e.id}>   
         <Link to={"/detail/"} key={e.id}>
            <Card id={e.id} name={e.name} image={e.image} temperament={e.temperament} temperaments={e.temperaments}/>
         </Link>
-      
+      </div>
         )
       })}
 
@@ -68,6 +95,7 @@ return(
       
     </div>
 
+    </div> 
     
     </div>
     

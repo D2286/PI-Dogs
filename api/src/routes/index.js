@@ -46,20 +46,25 @@ const getApi = async ()=>{
 
 const getDB = async ()=>{
 
-	const dbinfo= await Dog.findAll();
-	return dbinfo
+	return await Dog.findAll({
+        include:{
+            model: Temperament,
+            attributes:["name"],
+            through:{
+                attributes:[],
+            },
+        }
+    });
+	
 }
 
-/* cargaTempDb = async () =>{
-    let allApi = await get(apInt);
-    let allData = await allApi.map((e)=>{
-        
-        return{
-            temperament: e.temperament,
-        }
-})
-return allData
-} */
+const getAllDogs = async()=>{
+    const apinfo = await getApi();
+    const dbinfo = await getDB();
+    const intotale = apinfo.concat(dbinfo);
+    return intotale 
+
+}
 
 //-------RUTAS-------//-----///////
 
@@ -94,9 +99,9 @@ router.get('/tempes', async ( req, res ) => {
 router.get("/", async (req, res)=>{
 	try{
 		let name=req.query.name;
-		let api= await getApi();
-		let db= await getDB();
-		let getTotal=[...api,...db];
+		//let api= await getApi();
+		//let db= await getDB();
+		let getTotal= await getAllDogs();
 
 		if(name){
 			let nameDog= await getTotal.filter(e=>e.name.toLowerCase()===name.toLowerCase())
@@ -115,40 +120,36 @@ router.get("/", async (req, res)=>{
 
 //--------Trae perros por id /# de id
 
-router.get("/dogs/:id", async (req, res)=>{
-	try{
-		let {id}=req.params;
-		let db= await getDB();
-        let Api= await getApi();
-        let getTotal=[...Api,...db];
-
-        //console.log(getTotal)
-		if(id){
-			idDog= await getTotal.filter((e)=>e.id==id);
-            idDog.length ?
-			res.status(200).send(idDog) : 
-			res.status(404).send("Este perro no se encuentra");     
-		}else{
-            res.send(getTotal)        
-        }      
-	}  
-	catch(err){
-		res.send(err)
-	}
-})
+router.get("/:id", async (req, res) => {
+    try {
+      const { id } = req.params;
+  
+      if (id) {
+        const allDogs = await getAllDogs();
+        const filtered = allDogs.filter((elem) => elem.id == id);
+        if (filtered.length > 0) return res.status(200).send(filtered);
+        return res.status(404).send("The ID was not found");
+      }
+    }
+    catch(err) {
+      console.log(err)
+      return res.status(404).json(err)
+    }
+  });
 
 //POST///----------/////
 
 ///------Crea perros 
 
-router.post("/", async (req,res)=>{
-    const {name, weight, height, life_span, temperament, image} = req.body
+router.post("/", async (req,res, next)=>{
+    const {name, weight, height, life_span, image, temperament} = req.body;
+try{
     const crear = await Dog.create({
         name,
         weight,
         height,
         life_span,
-        image
+        image,
 });
     let tempDb = await Temperament.findAll({
         where:{
@@ -157,10 +158,14 @@ router.post("/", async (req,res)=>{
     })
     crear.addTemperament(tempDb)
     res.send("personaje creado")
+}
+catch(error){
+    next(error)
+}
 })
 
 
-router.post("/createmp", async (req,res)=>{
+router.post("/tempes", async (req,res)=>{
     const dogger = req.body
     if(dogger)
     {const crear = await Temperament.create(dogger);

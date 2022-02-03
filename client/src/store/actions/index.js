@@ -13,15 +13,19 @@ export function getApi(){
 
 
 export function getDetail(id) {
-    return async (dispatch) => {
-      const json = await axios.get(`http://localhost:3001/dogs/${id}`);
-      
-      return dispatch({
-        type: "DETAIL_DOG",
-        payload: json.data
-      });
-    };
+  return async function (dispatch) {
+      try {
+          var json = await axios.get('http://localhost:3001/' + id);
+          console.log(json.data)
+          return dispatch({
+              type: "DETAIL_DOG",
+              payload: json.data
+          })
+      } catch (err) {
+          console.log(err)
+      }
   }
+}
 
 
   export function Get_Temps() {
@@ -36,22 +40,34 @@ export function getDetail(id) {
   }  
 
   export function CreateDogs(payload) {
-    return async (dispatch) => {
+    return async function (dispatch) {
       const json = await axios.post("http://localhost:3001/", payload);
-      console.log(json.data)
-      return dispatch({
-        type: "CREATE_DOGS",
-        payload: json.data
-      });
+      //console.log(json)
+      return json;
     };
   }  
-  export function Name_Detail(name) {
+  export function nameDetail(name) {
     return async (dispatch) => {
       const json = await axios.get(`http://localhost:3001/?name=` + name);
-      //console.log(json.data)
       return dispatch({
         type: "NAME_DOG",
         payload: json.data
       });
     };
+  }
+
+  export function filterOrigin(payload) {
+    return {
+        
+        type: "FILTER_ORIGIN",
+        payload,
+      }
+  }
+
+  export function orderByName(payload) {
+    return {
+        
+        type: "ORDER_BY_NAME",
+        payload
+      }
   }

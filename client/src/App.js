@@ -18,8 +18,9 @@ function App(){
     <Switch>
     <Route exact path="/" component={Landing}/>
     <Route exact path="/Home" component={Home}/>
-    <Route exact path="/detail/:id" component={Detail}/>
     <Route path="/create" component={Form}/>
+    <Route exact path="/detail/:id" component={Detail}/>
+    
     </Switch>
     </div>
   );

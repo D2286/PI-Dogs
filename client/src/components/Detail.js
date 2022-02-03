@@ -1,23 +1,19 @@
 import React, {useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getDetail} from "../store/actions";
-import { Link, useParams} from "react-router-dom";
+import { Link} from "react-router-dom";
 
 
 
-export default function Detail(){
+export default function Detail(props){
     
-    const detail=useSelector((state)=>state.perro[0])
-	const dispatch=useDispatch()
-    console.log(detail)
-	let {id}=useParams();
-	useEffect(()=>{
-		dispatch(getDetail(id))
-	},[dispatch])
-    
-    
+    const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getDetail(props.match.params.id));
+  }, [dispatch]);
+  const detail = useSelector((state) => state.perro);
+
     return (
-
         <div>
 
             <div>
@@ -27,13 +23,18 @@ export default function Detail(){
                 </Link>
             </div>
     
-                <div key={id}>
-                <h3>{detail?.name}</h3>
-                <img src={detail?.image} alt="No encontrado" width="200px" height="250px"/>
-                <h3>{detail?.temperament}</h3>
-                <h3>{detail?.weight}</h3>
-                <h3>{detail?.height}</h3>
-                <h3>{detail?.life_span}</h3>
+                <div >
+                <h3>{detail[0]?.name}</h3>
+                <img src={detail[0]?.image} alt="No encontrado" width="200px" height="250px"/>
+                
+                <h3>Temperamentos<p>{detail[0]?.temperament
+                      ? detail[0].temperament?.map((elem) => elem + ", ")
+                      : detail[0]?.temperaments?.map(
+                          (elem) => elem.name + ", "
+                        )}  </p></h3>
+                <h3>{detail[0]?.weight}</h3>
+                <h3>{detail[0]?.height}</h3>
+                <h3>{detail[0]?.life_span}</h3>
                 </div>
         </div>       
       );

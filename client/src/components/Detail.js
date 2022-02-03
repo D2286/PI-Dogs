@@ -1,7 +1,12 @@
 import React, {useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
+<<<<<<< HEAD
 import { getDetail} from "../store/actions";
 import { Link} from "react-router-dom";
+=======
+import { getDetail} from "../actions";
+import { Link, useParams} from "react-router-dom";
+>>>>>>> bee315d18f7ac35bb32c11d522ea27109512d2de
 
 
 

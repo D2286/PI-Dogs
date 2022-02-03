@@ -10,6 +10,7 @@ export default function Paginado ({DogsxPage,allPerros,paginado}){
     return (
         <nav>
             <ul className="pag">
+<<<<<<< HEAD
             { pagNumbers?.map(n =>(
                 
                 <li key={n}>
@@ -20,6 +21,14 @@ export default function Paginado ({DogsxPage,allPerros,paginado}){
                     </li>
                 
                 
+=======
+            { pagNumbers.map((n) =>(
+                // <li key={n}>
+                // <a key={n} onClick={()=>paginado(n)}>{n}</a>
+                // </li>
+                <button key={n} onClick={()=>paginado(n)}>{n}</button>
+            
+>>>>>>> bee315d18f7ac35bb32c11d522ea27109512d2de
             
             
             ))}

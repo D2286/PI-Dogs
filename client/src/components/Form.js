@@ -1,7 +1,12 @@
 import React, {useState, useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
+<<<<<<< HEAD
 import {Get_Temps, CreateDogs} from "../store/actions";
 import {Link, useHistory} from "react-router-dom";
+=======
+import {Get_Temps, CreateDogs} from "../actions";
+import {Link} from "react-router-dom";
+>>>>>>> bee315d18f7ac35bb32c11d522ea27109512d2de
 
 
 

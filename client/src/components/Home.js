@@ -1,21 +1,25 @@
 import React from 'react';
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-<<<<<<< HEAD
-import { filterOrigin, getApi, orderByName } from "../store/actions";
-=======
-import { getApi } from "../actions";
->>>>>>> bee315d18f7ac35bb32c11d522ea27109512d2de
+
+import { filterOrigin, getApi, orderByName, filterByTemperament, Get_Temps} from "../actions/index.js";
+
+
+//bee315d18f7ac35bb32c11d522ea27109512d2de
 import Card from "./Card"
 import {Link} from "react-router-dom"
-import Searchbar from "./Searchbar"
+//import Searchbar from "./Searchbar"
+import Nav from "./Nav";
 import Paginado from "./Paginado";
+import style from "./Home.module.css";
 
 
 
 export default function Home (){
 
   const allPerros= useSelector(state=>state.perros)
+  const dispatch = useDispatch()
+  const temperaments = useSelector((state) => state.temperament);
   const [currPag,setPag]= useState(1)
   const [dogsxPage]= useState(5)
   const indexLastDogs = currPag*dogsxPage
@@ -25,17 +29,16 @@ export default function Home (){
     setPag(pagNum)
   }
 
+  useEffect(()=>{
+    dispatch(getApi())
+    dispatch(Get_Temps());
+  },[dispatch])
+
   function handleFilterOrigin(e) {
     e.preventDefault();
     dispatch(filterOrigin(e.target.value))
+    setPag(1);
 }
-
- 
-  const dispatch = useDispatch()
-
-    useEffect(()=>{
-    dispatch(getApi())
-  },[dispatch])
 
 
   const[, setOrden] = useState("")
@@ -45,44 +48,70 @@ export default function Home (){
     setOrden(e.target.value)
 
   }
- 
+
+  const handleFilterTemperament = (e) => {
+    console.log(e.target.value);
+    dispatch(filterByTemperament(e.target.value));
+    setPag(1);
+  };
+  
 
 return(
 
     <div>
 
-  <Searchbar/>
-  
-    <div>
+      <div >
+        <Nav />
+      </div>
 
-    <select onChange={e => handleFilterOrigin(e)}>
+    <div className={style.fondo}>  
+
+    <div className={style.dogFilters}>
+    <div class="input-group-prepend">
+    <select type="button" class="btn btn-outline-light" onChange={e => handleFilterOrigin(e)}>
       <option value='all'>All</option>
       <option value='api'>Existent breed</option>
       <option value='created'>Created breeds</option>
     </select>
+    </div>
 
-
-    <select onChange={e => handleSort(e)}>
+    <div class="input-group-prepend">
+    <select type="button" class="btn btn-outline-light"  onChange={e => handleSort(e)}>
       <option value="az"> ASC</option>
       <option value="za"> DESC </option>
     </select>
+    </div>
 
-    <div> 
+    <div class="input-group-prepend">
+    <select type="button" class="btn btn-outline-light"  onChange={(e) => handleFilterTemperament(e)}>
+          <option value="all">Todos</option>
+          {temperaments?.map((elem) => (
+            <option value={elem.name} key={elem.id}>
+              {elem.name}
+            </option>
+          ))}
+        </select>
 
-    <Paginado
+        </div>  
+
+        </div>
+
+        <div>
+
+        <Paginado
         dogsxPage={dogsxPage}
-        allDogs={allPerros?.length}
+        allPerros={allPerros?.length}
         paginado={paginado}
-    />
+          />
 
-    
+        </div>
 
-    <div>
-      <h1>Home</h1>    
+    <div className={style.dogs} >
+         
 
-      <Link to= '/create'><button>Crear</button></Link>
+      {/* <Link to= '/create'><button>Crear</button></Link> */}
   
-      <div className="contenedorcartas">
+      <div className={style.dogContainer}>
     
       {currDogs?.map(e=>{
         return(
@@ -93,7 +122,7 @@ return(
         </Link>
       </div>
         )
-      })}
+    })}
 
     
       
@@ -104,7 +133,7 @@ return(
     </div>
     
     </div>
-    </div>
+  
 )
 
 }

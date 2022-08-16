@@ -3,7 +3,7 @@ const init = {
     perros : [],
     perro :[],
     filterDogs: [],
-    temperamentos:[],
+    temperament:[],
 
 }
 
@@ -34,12 +34,27 @@ export default function reducer(state=init, action){
                 //console.log(action.payload)
                 return {
                     ...state,
-                temperamentos:action.payload
+                temperament:action.payload
                 };  
+
+            case "FILTER_TEMPERAMENT":
+                let allDogs = state.filterDogs;
+                let temperamentsFiltered =
+                action.payload === "all"
+                    ? allDogs
+                    : allDogs.filter((elem) =>
+                        elem.temperament?.includes(action.payload)
+                );
+                return {
+                    ...state,
+                    perros: temperamentsFiltered,
+                 };
+
                 case "CREATE_DOGS":
+                    console.log()
                
                     return {
-                        ...state,}
+                        ...state}
                     //temperamentos:action.payload
 
                 case "FILTER_ORIGIN":
@@ -79,9 +94,14 @@ export default function reducer(state=init, action){
                         return {
                             ...state,
                             perros: ordenado
-                        }    
-        default:
-            return state;
+                        }
+                        case 'DELETE_DETAILS':
+                        return{
+                            ...state,
+                            details: []
+                            } 
+                        default:
+                             return state;
     }
 
 }

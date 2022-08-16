@@ -1,0 +1,32 @@
+.paginado{
+    display: inline-block;
+    color: black;
+    /* float: left; */
+    padding: 1px 0px;
+    text-decoration: none;
+    background-color: blanchedalmond;
+    border-radius: 5px;
+    margin: 2px;
+}
+
+.list {
+    display: inline-flex;
+
+}
+
+.list a {
+    background: #010200d0;
+    text-decoration-color: blanchedalmond;
+
+}  
+
+.cuadro{
+    text-decoration: rgb(4, 5, 5);
+}
+
+
+a{
+    text-decoration: none;
+    color: black;  
+    border-radius: 2px;
+}

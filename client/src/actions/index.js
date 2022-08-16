@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export function getApi(){
     return async (dispatch)=>{
-        var json= await axios.get('http://localhost:3001/');
+        var json= await axios.get('http://localhost:3001/dogs');
         //console.log(json.data);
         return dispatch({
             type: 'GET_DOGS',
@@ -15,7 +15,7 @@ export function getApi(){
 export function getDetail(id) {
   return async function (dispatch) {
       try {
-          var json = await axios.get('http://localhost:3001/' + id);
+          var json = await axios.get('http://localhost:3001/dogs/' + id);
           console.log(json.data)
           return dispatch({
               type: "DETAIL_DOG",
@@ -30,7 +30,7 @@ export function getDetail(id) {
 
   export function Get_Temps() {
     return async (dispatch) => {
-      const json = await axios.get("http://localhost:3001/tempes");
+      const json = await axios.get("http://localhost:3001/temperament");
       //console.log(json.data)
       return dispatch({
         type: "GET_TEMPERAMENTS",
@@ -41,18 +41,25 @@ export function getDetail(id) {
 
   export function CreateDogs(payload) {
     return async function (dispatch) {
-      const json = await axios.post("http://localhost:3001/", payload);
-      //console.log(json)
+      const json = await axios.post("http://localhost:3001/dog", payload);
+      console.log(json)
       return json;
     };
   }  
   export function nameDetail(name) {
     return async (dispatch) => {
-      const json = await axios.get(`http://localhost:3001/?name=` + name);
+      const json = await axios.get(`http://localhost:3001/dogs/?name=` + name);
       return dispatch({
         type: "NAME_DOG",
         payload: json.data
       });
+    };
+  }
+
+  export function filterByTemperament(payload) {
+    return {
+      type: "FILTER_TEMPERAMENT",
+      payload,
     };
   }
 
@@ -71,3 +78,11 @@ export function getDetail(id) {
         payload
       }
   }
+
+  export function deleteDetails() {
+    return async function (dispatch){
+    return dispatch({
+        type: 'DELETE_DETAILS'
+    })
+}
+}

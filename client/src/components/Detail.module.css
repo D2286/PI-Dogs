@@ -1,0 +1,95 @@
+.home{
+    
+}
+
+.columnas{
+    column-count: 2;
+    column-gap: 10px;
+    -webkit-column-rule: 1px solid rgba(28,110,164,0.5);
+    -moz-column-rule: 1px solid rgba(28,110,164,0.5);
+    column-rule: 5px solid rgba(238, 224, 36, 0.5);
+    text-align: center;
+}
+
+.image{
+    
+    border: 2px solid rgb(15, 8, 8);
+    
+}
+
+.box{
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+}
+
+.titletemp{
+    color: #fefffd;
+    font-size: 30px;
+    padding-bottom: 0;
+    margin-bottom: 30px;
+    text-align: center;
+    margin-right: 20px;
+    margin-top: 32px;
+}
+
+.allTemps{
+    border: 2px solid rgb(15, 8, 8);
+    background-color: rgba(255, 0, 0, 0.089);
+    text-align: center;
+    color: #f1e8f1;
+    position: relative;
+    margin-right: 35px;
+    
+    
+}
+
+.sizetitle{
+    color: #fefffd;
+    font-size: 30px;
+    padding-bottom: 0;
+    margin-bottom: 30px;
+    text-align: center;
+    margin-top: 30px;
+    
+}
+
+
+.fondo{
+    background-image: url('./img/fondolanding.webp');
+    
+}
+
+.data{
+    position:relative;
+    text-align: center;
+    margin:auto;
+    border: 1px solid #0f0d0f;
+    background: #010200d0;
+    border-radius: 5px;
+    text-align: center;
+    color: #f1e8f1;
+}
+
+p{
+    color: #131410;
+    font-size: medium;
+    padding-bottom: 5px;
+
+}
+
+.volver{
+    position: relative;
+    left: 10em;
+}
+
+.caracts{
+    font-size: 25px;
+    
+}
+
+.sizedog{
+
+    text-align: center;
+    margin-bottom: 30px;
+}

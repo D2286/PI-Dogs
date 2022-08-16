@@ -31,7 +31,7 @@ const getApi = async ()=>{
             life_span: e.life_span,
             temperament: [e.temperament]
             .join()
-            .split(",")
+            .split(", ")
             .map((e) => e.trim()),
             image: e.image.url    
         }
@@ -69,7 +69,7 @@ const getAllDogs = async()=>{
 //-------RUTAS-------//-----///////
 
 
-router.get('/tempes', async ( req, res ) => {
+router.get('/temperament', async ( req, res ) => {
 
     const dogsApi = await axios.get(apExt);
     const dogsDb = dogsApi.data.map( el => el.temperament )
@@ -84,7 +84,7 @@ router.get('/tempes', async ( req, res ) => {
                 }
                
             })
-            console.log(splitTemperaments) 
+            //console.log(splitTemperaments) 
     })
 
     const allTemperaments = await Temperament.findAll();
@@ -92,11 +92,9 @@ router.get('/tempes', async ( req, res ) => {
     return res.status( 200 ).send( allTemperaments )
 })
 
-
-
 ///// Trae tosdos los perros y con ?name="nombre perros"
 
-router.get("/", async (req, res)=>{
+router.get("/dogs", async (req, res)=>{
 	try{
 		let name=req.query.name;
 		//let api= await getApi();
@@ -120,7 +118,7 @@ router.get("/", async (req, res)=>{
 
 //--------Trae perros por id /# de id
 
-router.get("/:id", async (req, res) => {
+router.get("/dogs/:id", async (req, res) => {
     try {
       const { id } = req.params;
   
@@ -141,7 +139,7 @@ router.get("/:id", async (req, res) => {
 
 ///------Crea perros 
 
-router.post("/", async (req,res, next)=>{
+router.post("/dog", async (req,res, next)=>{
     const {name, weight, height, life_span, image, temperament} = req.body;
 try{
     const crear = await Dog.create({
@@ -165,47 +163,7 @@ catch(error){
 })
 
 
-router.post("/tempes", async (req,res)=>{
-    const dogger = req.body
-    if(dogger)
-    {const crear = await Temperament.create(dogger);
-        res.send(crear)
-    }else{
-        res.send("No hay")
-    }
-
-})
 
 
 module.exports = router;
 
-
-/*    router.post("/temps", async (req,res)=>{
-        const {name, weight, height, life_span, temperament, image} = req.body
-        const crear = await Dog.create({
-            name,
-            weight,
-            height,
-            life_span,
-            image
-    });
-        for (let i = 0; i < temperament.length; i++) {
-            let temperamentDB = await Temperament.findAll({
-                where:{
-                    name: temperament[i]
-                },
-                attributes:["id"]     
-        })
-        crear.addTemperament(temperamentDB[0].id)
-        }
-        res.send("temperamento creado") */
- /* if(name && weight && heigth && life_span && temperaments && image){
-    try{
-        const crear = await Dog.create({name, weight, heigth, life_span, image})
-        res.send(crear)     
-    }catch(e){
-        next(e)
-    }
-}else{
-    res.send("No hay nada")
-}   */

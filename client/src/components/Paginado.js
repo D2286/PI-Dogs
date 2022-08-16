@@ -1,40 +1,28 @@
 import React from "react";
+import style from './Paginado.module.css';
 
-export default function Paginado ({DogsxPage,allPerros,paginado}){
+
+export default function Paginado ({dogsxPage,allPerros,paginado}){
     const pagNumbers = []
 
-    for (let i = 0; i<=Math.ceil(allPerros/DogsxPage); i++) {
+    for (let i = 1; i<=Math.ceil(allPerros/dogsxPage); i++) {
         pagNumbers.push(i)
         
     }
     return (
-        <nav>
-            <ul className="pag">
-<<<<<<< HEAD
-            { pagNumbers?.map(n =>(
-                
-                <li key={n}>
-                    <div onClick={()=>paginado(n)}>{n}
-                    
-                    
-                    </div>
-                    </li>
-                
-                
-=======
-            { pagNumbers.map((n) =>(
-                // <li key={n}>
-                // <a key={n} onClick={()=>paginado(n)}>{n}</a>
-                // </li>
-                <button key={n} onClick={()=>paginado(n)}>{n}</button>
-            
->>>>>>> bee315d18f7ac35bb32c11d522ea27109512d2de
-            
-            
-            ))}
-
-            </ul>
-        </nav>
+        <div class="pagination justify-content-center">
+    <nav className={style.error} >
+      <ul class="pagination pagination-sm">
+        {
+          pagNumbers?.map(number => (
+            <li key={number}
+            className={style.list}>
+              <a class="page-link" href="#" onClick={() => paginado(number)} >{number}</a>
+            </li>
+          ))}
+      </ul>
+    </nav>
+    </div>
     
     )
 }

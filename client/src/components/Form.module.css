@@ -1,0 +1,19 @@
+
+
+.containerForm{
+    
+    padding: 3rem;
+    line-height: 45px;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    float:center;
+    width: 700px;
+  }
+
+.contenedor{
+  background-image: url('./img/fondolanding.webp');
+
+}
+
+.title{
+  justify-content:center;
+}

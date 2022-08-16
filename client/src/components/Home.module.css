@@ -1,0 +1,45 @@
+.fondo{
+  background-image: url('./img/fondolanding.webp');
+  
+  
+}
+
+.dogs {
+    margin: 10px 0;
+    min-height: 100%;
+  }
+
+
+.dogContainer {
+    max-width: 90%;
+    margin: 30px auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    position: relative;
+  }
+
+.dogFilters {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  
+  
+  }
+
+.dogFilters div{
+  margin: 0 10px;
+  background: #010200d0;
+  
+  
+}
+
+.font{
+  text-decoration-color: blanchedalmond;
+}
+
+
+
+  
+  
+

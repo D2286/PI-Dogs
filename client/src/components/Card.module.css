@@ -1,0 +1,27 @@
+
+.card {
+    width: 200px;
+    margin: 5px;
+    padding: 3px;
+    border-radius: 5px;
+    border: 1px solid #0f0d0f;
+    background: #010200d0;
+    
+  }
+
+  .title {
+    text-align: center;
+    color: #f1e8f1;
+  }
+
+  .image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    border-radius: 10px;
+    animation-name: cardBorder;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+  }

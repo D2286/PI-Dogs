@@ -1,0 +1,13 @@
+.img{
+    background: rgba(106, 129, 11, 0.096);
+    height: 100vh;
+}
+
+.title{
+    display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-image: url('./img/fondolanding.webp');
+}
+
